@@ -1,0 +1,96 @@
+﻿<Window x:Class="scale.View.PriceManagementView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:scale.View"
+        mc:Ignorable="d"
+        Title="PriceManagementView" Height="450" Width="800" Loaded="load">
+    <Grid>
+        <!--
+        Basically, there are 2 rows:
+        + Table row
+        + Button row
+        -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Table -->
+        <Grid Grid.Row="0">
+            <DataGrid
+                x:Name="merchandiseDataGrid"
+                IsReadOnly="True"
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding UnitPriceDataGridItems, UpdateSourceTrigger=PropertyChanged}"
+                Margin="5"
+                SelectionChanged="selectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Header="Sản Phẩm"
+                        MinWidth="50"
+                        Width="*"
+                        Binding="{Binding ProductID}"/>
+                    <DataGridTextColumn
+                        Header="Tỷ Trọng"
+                        MinWidth="50"
+                        Width="*"
+                        Binding="{Binding Proportion}"/>
+                    <DataGridTextColumn
+                        Header="Giá (VNĐ)"
+                        MinWidth="50"
+                        Width="*"
+                        Binding="{Binding Price}"/>
+                    <DataGridTextColumn
+                        Header="Ghi Chú"
+                        MinWidth="50"
+                        Width="*"
+                        Binding="{Binding Note}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!-- Buttons -->
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Horizontal">
+            <Button 
+                    Content="Thêm" 
+                    Width="75"
+                    Height="25"
+                    Background="#FF64CCF1"
+                    Foreground="#FFF9F9F9"
+                    Margin="5,0,0,5"
+                    Style="{DynamicResource RoundedButtonStyle}" Click="addNewPriceManagement"/>
+            <Button 
+                    x:Name="editBtn"
+                    Content="Sửa" 
+                    Width="75"
+                    Height="25"
+                    Background="#FF64CCF1"
+                    Foreground="#FFF9F9F9"
+                    Margin="5,0,0,5"
+                    Style="{DynamicResource RoundedButtonStyle}" 
+                    Click="edit"/>
+            <Button 
+                    x:Name="deleteBtn"
+                    Content="Xoá" 
+                    Width="75"
+                    Height="25"
+                    Background="#FF64CCF1"
+                    Foreground="#FFF9F9F9"
+                    Margin="5,0,0,5"
+                    Style="{DynamicResource RoundedButtonStyle}" 
+                    Click="delete"/>
+            <Button 
+                    Content="Thoát" 
+                    Width="75"
+                    Height="25"
+                    Background="#FFFA0808"
+                    Foreground="#FFF9F9F9"
+                    Margin="5,0,0,5"
+                    Style="{DynamicResource RoundedButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+</Window>

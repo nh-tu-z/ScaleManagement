@@ -1,0 +1,63 @@
+﻿<Window x:Class="scale.View.MerchandiseInsertionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:scale.View"
+        mc:Ignorable="d"
+        Title="MerchandiseInsertionView" 
+        Height="350" 
+        Width="200" 
+        Loaded="load"
+        x:Name="merchandiseInsertionView">
+    <Grid>
+        <StackPanel>
+            <TextBlock
+                        Text="Mã Sản Phẩm:"
+                        Margin="5,0,0,0" 
+                        FontWeight="Light"
+                        FontSize="15"/>
+            <TextBox
+                        x:Name="productIDTxtBox"
+                        Margin="5"/>
+            <TextBlock
+                        Text="Tên Sản Phẩm:"
+                        Margin="5,0,0,0" 
+                        FontWeight="Light"
+                        FontSize="15"/>
+            <TextBox
+                        x:Name="productNameTxtBox"
+                        Margin="5"/>
+            <TextBlock
+                        Text="Ghi Chú:"
+                        Margin="5,0,0,0" 
+                        FontWeight="Light"
+                        FontSize="15"/>
+            <!--TODO - multi-line-->
+            <TextBox
+                        x:Name="noteForProductTxtBox"
+                        Margin="5"/>
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center">
+                <Button 
+                    x:Name="applyBtn"
+                    Content="Thêm" 
+                    Width="75"
+                    Height="25"
+                    Background="#FF64CCF1"
+                    Foreground="#FFF9F9F9"
+                    Margin="5,0,0,5"
+                    Style="{DynamicResource RoundedButtonStyle}" Click="addProductToDB"/>
+                <Button 
+                    Content="Thoát" 
+                    Width="75"
+                    Height="25"
+                    Background="#FFFA0808"
+                    Foreground="#FFF9F9F9"
+                    Margin="5,0,0,5"
+                    Style="{DynamicResource RoundedButtonStyle}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

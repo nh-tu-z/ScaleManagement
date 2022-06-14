@@ -1,0 +1,78 @@
+﻿<Window x:Class="scale.View.ClientInsertionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:scale.View"
+        mc:Ignorable="d"
+        Title="ClientInsertionView" 
+        x:Name="clientInsertionView"
+        Height="350" 
+        Width="200">
+    <Grid>
+        <StackPanel Loaded="load">
+            <TextBlock
+                        Text="Mã Khách Hàng:"
+                        Margin="5,0,0,0" 
+                        FontWeight="Light"
+                        FontSize="15"/>
+            <TextBox
+                        x:Name="clientIdTxt"
+                        Margin="5"/>
+            <TextBlock
+                        Text="Tên Khách Hàng:"
+                        Margin="5,0,0,0" 
+                        FontWeight="Light"
+                        FontSize="15"/>
+            <TextBox
+                        x:Name="clientNameTxt"
+                        Margin="5"/>
+            <TextBlock
+                        Text="Số điện thoại:"
+                        Margin="5,0,0,0" 
+                        FontWeight="Light"
+                        FontSize="15"/>
+            <TextBox
+                        x:Name="clientPhoneTxt"
+                        Margin="5"/>
+            <TextBlock
+                        Text="Địa chỉ:"
+                        Margin="5,0,0,0" 
+                        FontWeight="Light"
+                        FontSize="15"/>
+            <TextBox
+                        x:Name="addressTxt"
+                        Margin="5"/>
+            <TextBlock
+                        Text="Ghi Chú:"
+                        Margin="5,0,0,0" 
+                        FontWeight="Light"
+                        FontSize="15"/>
+            <!--TODO - multi-line-->
+            <TextBox
+                        x:Name="noteTxt"
+                        Margin="5"/>
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center">
+                <Button 
+                    x:Name="applyBtn"
+                    Content="Thêm" 
+                    Width="75"
+                    Height="25"
+                    Background="#FF64CCF1"
+                    Foreground="#FFF9F9F9"
+                    Margin="5,0,0,5"
+                    Style="{DynamicResource RoundedButtonStyle}" Click="apply"/>
+                <Button 
+                    Content="Thoát" 
+                    Width="75"
+                    Height="25"
+                    Background="#FFFA0808"
+                    Foreground="#FFF9F9F9"
+                    Margin="5,0,0,5"
+                    Style="{DynamicResource RoundedButtonStyle}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
