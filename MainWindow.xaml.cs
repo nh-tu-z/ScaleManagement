@@ -1,0 +1,151 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+// excel
+using Microsoft.Office.Interop.Excel;
+//
+using scale.SQLQuery;
+using scale.ViewModelWrapper;
+using scale.Model;
+using scale.View;
+using scale.Helper;
+using scale.Peripheral;
+//firebase
+using Firebase.Database;
+using Firebase.Database.Query;
+//debug
+using System.Diagnostics;
+
+
+namespace scale
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : System.Windows.Window
+    {
+        private readonly ViewModel viewModel = new ViewModel();
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            // data is added to DataContext to be shown in table
+            //viewModel.OutputSheetDataGridItems = MineQuery.GetOutputSheets();
+            //this.DataContext = viewModel;
+        }
+
+        private async void load(object sender, RoutedEventArgs e)
+        {
+            //// TODO - we might need to use binding data in combo box
+            //// add client name data to combo box
+            //clientNameComboBox.ItemsSource = MineQuery.GetClientName();
+
+            //// add merchandise name to combo box
+            //merchandiseNameComboBox.ItemsSource = MineQuery.GetProductNameFromProductTable();
+
+            //// test scale convertion
+            ////Scale indicator = new Scale();
+            ////indicator.frameToWeigh(new byte[] { 0x02, 0x2B, 0x30, 0x30, 0x32, 0x30, 0x30, 0x30, 0x32, 0x31, 0x42, 0x03 });
+
+            //// test serial port
+            ////COM port = new COM();
+
+            ////port.init();
+
+            //// firebase
+            //var firebase = new FirebaseClient("https://tim-phong-tro-1526023386991.firebaseio.com");
+            //var dinos = await firebase
+            //  .Child("test").OnceAsync<Test>();
+
+
+
+            //Trace.WriteLine($"data: {((List<FirebaseObject<Test>>)dinos)[0].Object.name}");
+            ////Trace.WriteLine($"data: {dinos.ToString()}");
+        }
+
+        // TODO - for views that has query data from database when they initialize, 
+        // we need to add an async process for that view to prevent app from pending state
+        private void configViewClick(object sender, RoutedEventArgs e)
+        {
+            // TODO -  prevent duplication
+            ConfigurationView configView = new ConfigurationView();
+
+            configView.Show();
+        }
+
+        private void sheetsManagementViewClick(object sender, RoutedEventArgs e)
+        {
+            // TODO -  prevent duplication
+            SheetsManagementView sheetsManagementView = new SheetsManagementView();
+
+            sheetsManagementView.Show();
+        }
+
+        private void merchandiseViewClick(object sender, RoutedEventArgs e)
+        {
+            // TODO -  prevent duplication
+            MerchandiseView merchandiseView = new MerchandiseView();
+
+            merchandiseView.Show();
+        }
+
+        private void priceManagementViewClick(object sender, RoutedEventArgs e)
+        {
+            // TODO -  prevent duplication
+            PriceManagementView priceManagementView = new PriceManagementView();
+
+            priceManagementView.Show();
+        }
+
+        private void clientManagementViewClick(object sender, RoutedEventArgs e)
+        {
+            // TODO -  prevent duplication
+            ClientManagementView clientManagementView = new ClientManagementView();
+
+            clientManagementView.Show();
+        }
+
+        private void clientInsertionViewClick(object sender, RoutedEventArgs e)
+        {
+            // TODO -  prevent duplication
+            ClientInsertionView clientInsertionView = new ClientInsertionView();
+
+            clientInsertionView.Show();
+        }
+
+        private void merchandiseInsertionViewClick(object sender, RoutedEventArgs e)
+        {
+            // TODO -  prevent duplication
+            MerchandiseInsertionView merchandiseInsertionView = new MerchandiseInsertionView();
+
+            merchandiseInsertionView.Show();
+        }
+
+        private async void exportFileClick(object sender, RoutedEventArgs e)
+        {
+            // disable the button because we might have multiple click
+            exportBtn.IsEnabled = false;
+
+            Excel excelWorker = new WeightSheetExcel();
+            List<object> obj = MineQuery.GetOutputSheets().Cast<object>().ToList();
+            await excelWorker.write(obj);
+
+            // release button
+            exportBtn.IsEnabled = true;
+            MessageBox.Show("Export successfully", "Information",MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+}

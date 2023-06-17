@@ -1,0 +1,4 @@
+# ignore build file
+bin
+obj
+.vs
