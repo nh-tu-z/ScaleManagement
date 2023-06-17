@@ -36,15 +36,15 @@ namespace scale
     /// </summary>
     public partial class MainWindow : System.Windows.Window
     {
-        private readonly ViewModel viewModel = new ViewModel();
+        private readonly ViewModel _viewModel = new ViewModel();
 
         public MainWindow()
         {
             InitializeComponent();
 
             // data is added to DataContext to be shown in table
-            //viewModel.OutputSheetDataGridItems = MineQuery.GetOutputSheets();
-            //this.DataContext = viewModel;
+            _viewModel.OutputSheetDataGridItems = MineQuery.GetOutputSheets();
+            this.DataContext = _viewModel;
         }
 
         private async void load(object sender, RoutedEventArgs e)
