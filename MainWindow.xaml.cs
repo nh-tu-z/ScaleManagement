@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using scale.CommandText;
 // excel
 using Microsoft.Office.Interop.Excel;
 //
@@ -27,7 +28,8 @@ using Firebase.Database;
 using Firebase.Database.Query;
 //debug
 using System.Diagnostics;
-
+using scale.Interfaces;
+using scale.Services;
 
 namespace scale
 {
@@ -37,24 +39,33 @@ namespace scale
     public partial class MainWindow : System.Windows.Window
     {
         private readonly ViewModel _viewModel = new ViewModel();
+        private IDbService _dbService;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            InitialService();
+
             // data is added to DataContext to be shown in table
-            _viewModel.OutputSheetDataGridItems = MineQuery.GetOutputSheets();
-            this.DataContext = _viewModel;
+            _viewModel.OutputSheetDataGridItems = _dbService.Query<OutputSheet>(OutputSheetCommand.Get20OutputSheets);
+            DataContext = _viewModel;
+        }
+
+        private void InitialService()
+        {
+            var connectionString = "Server=localhost;Database=sysb;Trusted_Connection=True;";
+            _dbService = SqlServerService.CreateInstance(connectionString); ;
         }
 
         private async void load(object sender, RoutedEventArgs e)
         {
-            //// TODO - we might need to use binding data in combo box
-            //// add client name data to combo box
-            //clientNameComboBox.ItemsSource = MineQuery.GetClientName();
+            // TODO - we might need to use binding data in combo box
+            // add client name data to combo box
+            clientNameComboBox.ItemsSource = _dbService.Query<string>(KhachHangCommand.GetKhachHangName);
 
-            //// add merchandise name to combo box
-            //merchandiseNameComboBox.ItemsSource = MineQuery.GetProductNameFromProductTable();
+            // add merchandise name to combo box
+            merchandiseNameComboBox.ItemsSource = _dbService.Query<string>(SanPhamCommand.GetSanPhamName);
 
             //// test scale convertion
             ////Scale indicator = new Scale();
@@ -83,6 +94,7 @@ namespace scale
             // TODO -  prevent duplication
             ConfigurationView configView = new ConfigurationView();
 
+            configView.Owner = this;
             configView.Show();
         }
 

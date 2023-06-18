@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace scale.Model
 {
-    class Client
+    public class Client
     {
         // constant of class
         // TODO - may need a better format creation i.e. automatically create SP[XXXX]

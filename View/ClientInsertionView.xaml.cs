@@ -83,7 +83,7 @@ namespace scale.View
                     newClient.Address = addressTxt.Text;
                     newClient.Note = noteTxt.Text;
 
-                    //int rowChanged = MineQuery.CreateClient(newClient);
+                    int rowChanged = MineQuery.CreateClient(newClient);
 
                     // firebase
                     //var firebase = new FirebaseClient("https://canda-61897-default-rtdb.asia-southeast1.firebasedatabase.app/");
