@@ -11,7 +11,7 @@ namespace scale.Helper
     class DBConnection
     {
         // connection string
-        private const string connectionString = "Data Source=DESKTOP-3OJQK0E;Initial Catalog=DBCanDa;Integrated Security=True";
+        private const string connectionString = "Server=localhost;Database=sysb;Trusted_Connection=True;";
 
         // singleton instance
         private static DBConnection _instance;
