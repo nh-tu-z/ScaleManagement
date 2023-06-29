@@ -92,11 +92,14 @@
     <Compile Include="Helper\Excellor.cs" />
     <Compile Include="Interfaces\IDbService.cs" />
     <Compile Include="Interfaces\IKhachHangService.cs" />
+    <Compile Include="Interfaces\IMatHangService.cs" />
     <Compile Include="Model\DonGia.cs" />
     <Compile Include="Model\Entity\KhachHang.cs" />
+    <Compile Include="Model\Entity\SanPham.cs" />
     <Compile Include="Model\KhachHangDataModel.cs" />
     <Compile Include="Model\KhachHangNameDataModel.cs" />
-    <Compile Include="Model\SanPham.cs" />
+    <Compile Include="Model\MatHangDataModel.cs" />
+    <Compile Include="Model\TenHangDataModel.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Peripheral\COM.cs" />
     <Compile Include="Peripheral\Scale.cs" />
@@ -114,6 +117,7 @@
     <Compile Include="Scratch\Messaging\SerialPortViewModel.cs" />
     <Content Include="Script\V1_0_3__add_constraint_KhachHang_table.sql" />
     <Compile Include="Services\KhachHangService.cs" />
+    <Compile Include="Services\MatHangService.cs" />
     <Compile Include="Services\SqlServerService.cs" />
     <Compile Include="CommandText\DonGiaCommand.cs" />
     <Compile Include="SQLQuery\MineQuery.cs" />

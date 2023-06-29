@@ -30,7 +30,7 @@
                 IsReadOnly="True"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding ProductDataGridItems, UpdateSourceTrigger=PropertyChanged}"
-                Margin="5" SelectionChanged="selectionChanged" Loaded="load">
+                Margin="5" SelectionChanged="SelectionChangedEventHandler" Loaded="LoadEventHandler">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Header="Mã"
@@ -46,7 +46,7 @@
                         Header="Ghi Chú"
                         MinWidth="50"
                         Width="*"
-                        Binding="{Binding Note}"/>
+                        Binding="{Binding GhiChu}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -62,7 +62,7 @@
                     Background="#FF64CCF1"
                     Foreground="#FFF9F9F9"
                     Margin="5,0,0,5"
-                    Style="{DynamicResource RoundedButtonStyle}" Click="addNewProduct"/>
+                    Style="{DynamicResource RoundedButtonStyle}" Click="AddNewProductEventHandler"/>
             <Button 
                     x:Name="editBtn"
                     Content="Sửa" 
@@ -71,7 +71,7 @@
                     Background="#FF64CCF1"
                     Foreground="#FFF9F9F9"
                     Margin="5,0,0,5"
-                    Style="{DynamicResource RoundedButtonStyle}" Click="edit"/>
+                    Style="{DynamicResource RoundedButtonStyle}" Click="EditEventHandler"/>
             <Button 
                     x:Name="deleteBtn"
                     Content="Xoá" 
@@ -80,7 +80,7 @@
                     Background="#FF64CCF1"
                     Foreground="#FFF9F9F9"
                     Margin="5,0,0,5"
-                    Style="{DynamicResource RoundedButtonStyle}" Click="delete"/>
+                    Style="{DynamicResource RoundedButtonStyle}" Click="DeleteEventHandler"/>
             <Button 
                     Content="Thoát" 
                     Width="75"

@@ -299,6 +299,7 @@
                     VerticalAlignment="Center" 
                     FontWeight="Medium"/>
             <ComboBox 
+                    ItemsSource="{Binding Path=TenHang}"
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Center" 
                     Width="120"
@@ -314,7 +315,7 @@
                     Style="{DynamicResource CircleButton}" 
                     Foreground="Black" 
                     Background="#FFAEEA00" 
-                    Click="merchandiseInsertionViewClick"/>
+                    Click="MerchandiseInsertionViewClickEventHandler"/>
             <Button 
                     Content="#"   
                     VerticalAlignment="Center" 
@@ -417,7 +418,7 @@
                     Foreground="#FFF9F9F9"
                     Margin="5,0,0,5"
                     Style="{DynamicResource RoundedButtonStyle}" 
-                    Click="merchandiseViewClick"/>
+                    Click="MerchandiseViewClick"/>
                 <Button 
                     Content="Phiếu Cân"  
                     VerticalAlignment="Center" 

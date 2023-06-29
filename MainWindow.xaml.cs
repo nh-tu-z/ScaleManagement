@@ -41,6 +41,7 @@ namespace scale
         private ViewModel _viewModel = new ViewModel();
         private IDbService _dbService;
         private IKhachHangService _khachHangService;
+        private IMatHangService _matHangService;
 
         public MainWindow()
         {
@@ -53,6 +54,7 @@ namespace scale
             DataContext = _viewModel;
 
             GetKhachHangNameDropDown();
+            GetTenHangDropDown();
         }
 
         private void InitializeService()
@@ -60,13 +62,11 @@ namespace scale
             var connectionString = "Server=localhost;Database=sysb;Trusted_Connection=True;";
             _dbService = SqlServerService.CreateInstance(connectionString);
             _khachHangService = new KhachHangService(_dbService);
+            _matHangService = new MatHangService(_dbService);
         }
 
         private async void load(object sender, RoutedEventArgs e)
         {
-            // add merchandise name to combo box
-            merchandiseNameComboBox.ItemsSource = _dbService.Query<string>(SanPhamCommand.GetSanPhamName);
-
             //// test scale convertion
             ////Scale indicator = new Scale();
             ////indicator.frameToWeigh(new byte[] { 0x02, 0x2B, 0x30, 0x30, 0x32, 0x30, 0x30, 0x30, 0x32, 0x31, 0x42, 0x03 });
@@ -92,7 +92,13 @@ namespace scale
             _viewModel.KhachHangNames.Clear();
             var allKhachHangNames = _khachHangService.GetAllKhachHangNames();
             _viewModel.KhachHangNames.AddRange(allKhachHangNames);
+        }
 
+        private void GetTenHangDropDown()
+        {
+            _viewModel.TenHang.Clear();
+            var tenHang = _matHangService.GetTenHang();
+            _viewModel.TenHang.AddRange(tenHang);
         }
 
         // TODO - for views that has query data from database when they initialize, 
@@ -114,11 +120,10 @@ namespace scale
             sheetsManagementView.Show();
         }
 
-        private void merchandiseViewClick(object sender, RoutedEventArgs e)
+        private void MerchandiseViewClick(object sender, RoutedEventArgs e)
         {
-            // TODO -  prevent duplication
-            MerchandiseView merchandiseView = new MerchandiseView();
-
+            MerchandiseView merchandiseView = new MerchandiseView(_dbService);
+            merchandiseView.Closed += ClosedEventHandler;
             merchandiseView.Show();
         }
 
@@ -140,6 +145,7 @@ namespace scale
         private void ClosedEventHandler(object sender, EventArgs e)
         {
             GetKhachHangNameDropDown();
+            GetTenHangDropDown();
         }
 
         private void ClientInsertionViewClickEventHandler(object sender, RoutedEventArgs e)
@@ -149,11 +155,10 @@ namespace scale
             clientInsertionView.Show();
         }
 
-        private void merchandiseInsertionViewClick(object sender, RoutedEventArgs e)
+        private void MerchandiseInsertionViewClickEventHandler(object sender, RoutedEventArgs e)
         {
-            // TODO -  prevent duplication
             MerchandiseInsertionView merchandiseInsertionView = new MerchandiseInsertionView();
-
+            merchandiseInsertionView.Closed += ClosedEventHandler;
             merchandiseInsertionView.Show();
         }
 
