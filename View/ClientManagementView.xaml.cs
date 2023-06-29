@@ -15,9 +15,11 @@ using System.Windows.Shapes;
 using scale.ViewModelWrapper;
 using scale.SQLQuery;
 using scale.Model;
+using scale.Interfaces;
 // debugging
 using System.Diagnostics;
-
+using scale.CommandText;
+using scale.Services;
 
 namespace scale.View
 {
@@ -26,17 +28,28 @@ namespace scale.View
     /// </summary>
     public partial class ClientManagementView : Window
     {
-        private readonly ViewModel viewModel = new ViewModel();
-        public ClientManagementView()
+        private ViewModel _viewModel = new ViewModel();
+        private IDbService _dbService;
+        private IKhachHangService _khachHangService;
+
+        public ClientManagementView(IDbService dbService)
         {
             InitializeComponent();
 
-            viewModel.ClientDataGridItems = MineQuery.GetClients();
+            InitializeService(dbService);
 
-            this.DataContext = viewModel;
+            DataContext = _viewModel;
+
+            GetKhachHangTable();
         }
 
-        private void delete(object sender, RoutedEventArgs e)
+        public void InitializeService(IDbService dbService)
+        {
+            _dbService = dbService;
+            _khachHangService = new KhachHangService(dbService);
+        }
+
+        private void DeleteEventHandler(object sender, RoutedEventArgs e)
         {
             // show confirm box to client aware of their action
             MessageBoxResult result = MessageBox.Show(@"Thông tin khách hàng này sẽ bị xoá vĩnh viễn và không có khả năng khôi phục,
@@ -44,47 +57,65 @@ namespace scale.View
             if (result == MessageBoxResult.Yes)
             {
                 // getting the current row (item) of table
-                Client selectedClient = (Client)clientDataGrid.SelectedItem;
+                KhachHang selectedClient = (KhachHang)clientDataGrid.SelectedItem;
 
                 // delete the record in database
                 int rowChanged = MineQuery.DeleteClient(selectedClient.ID);
 
                 // debugging
                 Trace.WriteLine($"ClientManagementView - Deleted Product - affected row: {rowChanged}");
+
+                GetKhachHangTable();
             }
         }
 
-        private void add(object sender, RoutedEventArgs e)
+        private void AddEventHandler(object sender, RoutedEventArgs e)
         {
-            ClientInsertionView clientInsertionView = new ClientInsertionView();
-
+            ClientInsertionView clientInsertionView = new ClientInsertionView(_dbService);
+            clientInsertionView.Closed += ClosingEventHandler;
             clientInsertionView.Show();
+
 
             // TODO - listen collapse event there to refesh the table
         }
 
-        private void selectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ClosingEventHandler(object sender, EventArgs e)
+        {
+            GetKhachHangTable();
+        }
+
+        private void SelectionChangedEventHandler(object sender, SelectionChangedEventArgs e)
         {
             // enable edition and deletion function when a record is chossen
             editBtn.IsEnabled = true;
             deleteBtn.IsEnabled = true;
         }
 
-        private void load(object sender, RoutedEventArgs e)
+        private void LoadEventHandler(object sender, RoutedEventArgs e)
         {
             // disable edition and deletion function when a record is chossen
             editBtn.IsEnabled = false;
             deleteBtn.IsEnabled = false;
         }
 
-        private void edit(object sender, RoutedEventArgs e)
+        private void EditEventHandler(object sender, RoutedEventArgs e)
         {
             // getting the current row (item) of table
-            Client selectedClient = (Client)clientDataGrid.SelectedItem;
+            KhachHang selectedClient = (KhachHang)clientDataGrid.SelectedItem;
 
             //...then send to the new view
             ClientInsertionView clientInsertionView = new ClientInsertionView(selectedClient);
+            clientInsertionView.Closed += ClosingEventHandler;
             clientInsertionView.Show();
+
+
+        }
+
+        private void GetKhachHangTable()
+        {
+            _viewModel.ClientDataGridItems.Clear();
+            var khachHangs = _khachHangService.GetAllKhachHangs();
+            _viewModel.ClientDataGridItems.AddRange(khachHangs);
         }
     }
 }

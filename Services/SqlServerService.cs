@@ -42,5 +42,10 @@ namespace scale.Services
         {
             return _connection.Execute(query, parameters);
         }
+
+        public T QuerySingleOrDefault<T>(string query, object parameters = null) where T : class
+        {
+            return _connection.QuerySingleOrDefault<T>(query, parameters);
+        }
     }
 }

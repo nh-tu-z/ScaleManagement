@@ -19,6 +19,7 @@ using System.Diagnostics;
 //firebase
 using Firebase.Database;
 using Firebase.Database.Query;
+using scale.Interfaces;
 
 namespace scale.View
 {
@@ -27,36 +28,40 @@ namespace scale.View
     /// </summary>
     public partial class ClientInsertionView : Window
     {
-        public ClientInsertionView()
+        private readonly IDbService _dbService;
+
+        public ClientInsertionView(IDbService dbService)
         {
             InitializeComponent();
 
+            _dbService = dbService;
+
             // Show the client id - read only
-            clientIdTxt.Text = Client.IdGenerator();
+            clientIdTxt.Text = KhachHang.IdGenerator(_dbService);
         }
 
         public ClientInsertionView(object obj)
         {
             InitializeComponent();
 
-            Client changedClient = (Client)obj;
+            KhachHang changedClient = (KhachHang)obj;
 
             clientIdTxt.Text = changedClient.ID;
             clientNameTxt.Text = changedClient.Name;
-            clientPhoneTxt.Text = changedClient.Phone;
-            addressTxt.Text = changedClient.Address;
-            noteTxt.Text = changedClient.Note;
+            clientPhoneTxt.Text = changedClient.SDT;
+            addressTxt.Text = changedClient.DiaChi;
+            noteTxt.Text = changedClient.GhiChu;
 
             // change the content of the button if we are prompt to edition view
             applyBtn.Content = "Sửa";
         }
 
-        private void load(object sender, RoutedEventArgs e)
+        private void Load(object sender, RoutedEventArgs e)
         {
             clientIdTxt.IsEnabled = false;
         }
 
-        private async void apply(object sender, RoutedEventArgs e)
+        private async void Apply(object sender, RoutedEventArgs e)
         {
             if ((string)applyBtn.Content == "Sửa")
             {
@@ -94,7 +99,18 @@ namespace scale.View
                     //// debugging
                     //Trace.WriteLine($"ClientInsertionView - Create new client - row changed: {rowChanged}");
                 }
-            }    
+            }
+
+            //
+            //RoutedEvent[] events = EventManager.GetRoutedEvents();
+            //foreach (RoutedEvent routedEvent in events)
+            //{
+            //    if (Owner is Window parentWindow)
+            //    {
+            //        RoutedEventHandlerInfo[] handlers = parentWindow.GetHandlers(routedEvent);
+            //    }
+            //}
+
 
             // collapse the view
             clientInsertionView.Close();

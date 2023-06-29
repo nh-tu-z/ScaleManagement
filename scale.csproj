@@ -91,8 +91,11 @@
     <Compile Include="Helper\DBConnection.cs" />
     <Compile Include="Helper\Excellor.cs" />
     <Compile Include="Interfaces\IDbService.cs" />
+    <Compile Include="Interfaces\IKhachHangService.cs" />
     <Compile Include="Model\DonGia.cs" />
     <Compile Include="Model\KhachHang.cs" />
+    <Compile Include="Model\KhachHangDataModel.cs" />
+    <Compile Include="Model\KhachHangPropertyChanged.cs" />
     <Compile Include="Model\SanPham.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Peripheral\COM.cs" />
@@ -109,7 +112,9 @@
     <Compile Include="Scratch\Messaging\MessageViewModel.cs" />
     <Compile Include="Scratch\Messaging\PortSettiingsViewModel.cs" />
     <Compile Include="Scratch\Messaging\SerialPortViewModel.cs" />
+    <Resource Include="Model\Entity\text.txt" />
     <Content Include="Script\V1_0_3__add_constraint_KhachHang_table.sql" />
+    <Compile Include="Services\KhachHangService.cs" />
     <Compile Include="Services\SqlServerService.cs" />
     <Compile Include="CommandText\DonGiaCommand.cs" />
     <Compile Include="SQLQuery\MineQuery.cs" />
@@ -227,7 +232,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Script\V1_0_0__init_DonGia_table.sql" />
     <Content Include="Script\V1_0_1__init_khachhang_table.sql" />
