@@ -16,6 +16,7 @@ using scale.Model;
 using scale.SQLQuery;
 // debugging
 using System.Diagnostics;
+using scale.Model.Entity;
 
 namespace scale.View
 {
@@ -36,10 +37,10 @@ namespace scale.View
         {
             InitializeComponent();
 
-            Product product = (Product)obj;
+            var product = (SanPham)obj;
             productIDTxtBox.Text = product.ID;
             productNameTxtBox.Text = product.Name;
-            noteForProductTxtBox.Text = product.Note;
+            noteForProductTxtBox.Text = product.GhiChu;
 
             // change the button content
             applyBtn.Content = "Sửa";

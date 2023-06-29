@@ -20,7 +20,12 @@ namespace scale.Services
 
         public IEnumerable<KhachHang> GetAllKhachHangs()
         {
-            return _dbService.Query<KhachHangPropertyChanged>(KhachHangCommand.GetAllKhachHang);
+            return _dbService.Query<KhachHang>(KhachHangCommand.GetAllKhachHang);
+        }
+
+        public IEnumerable<string> GetAllKhachHangNames()
+        {
+            return _dbService.Query<string>(KhachHangCommand.GetKhachHangName);
         }
     }
 }

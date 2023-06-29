@@ -11,5 +11,9 @@ namespace scale.CommandText
         public const string GetSanPhamName = @"
             SELECT product.Name
             FROM SanPham AS product";
+
+        public const string GetAllSanPham = @"
+            SELECT product.ID, product.Name, product.GhiChu
+            FROM dbo.SanPham AS product";
     }
 }

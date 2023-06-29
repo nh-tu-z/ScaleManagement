@@ -72,14 +72,11 @@ namespace scale.View
         private void AddEventHandler(object sender, RoutedEventArgs e)
         {
             ClientInsertionView clientInsertionView = new ClientInsertionView(_dbService);
-            clientInsertionView.Closed += ClosingEventHandler;
+            clientInsertionView.Closed += ClosedEventHandler;
             clientInsertionView.Show();
-
-
-            // TODO - listen collapse event there to refesh the table
         }
 
-        private void ClosingEventHandler(object sender, EventArgs e)
+        private void ClosedEventHandler(object sender, EventArgs e)
         {
             GetKhachHangTable();
         }
@@ -105,7 +102,7 @@ namespace scale.View
 
             //...then send to the new view
             ClientInsertionView clientInsertionView = new ClientInsertionView(selectedClient);
-            clientInsertionView.Closed += ClosingEventHandler;
+            clientInsertionView.Closed += ClosedEventHandler;
             clientInsertionView.Show();
 
 

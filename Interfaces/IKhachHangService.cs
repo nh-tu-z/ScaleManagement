@@ -10,5 +10,6 @@ namespace scale.Interfaces
     public interface IKhachHangService
     {
         IEnumerable<KhachHang> GetAllKhachHangs();
+        IEnumerable<string> GetAllKhachHangNames();
     }
 }
