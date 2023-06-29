@@ -8,11 +8,11 @@ using scale.Model;
 
 namespace scale.ViewModelWrapper
 {
-    class ViewModel
+    class ViewModel 
     {
         public IEnumerable<OutputSheet> OutputSheetDataGridItems { get; set; }
         public IEnumerable<Product> ProductDataGridItems { get; set; }
-        public IEnumerable<Client> ClientDataGridItems { get; set; }
+        public KhachHangDataModel ClientDataGridItems { get; set; } = new KhachHangDataModel();
         public IEnumerable<UnitPrice> UnitPriceDataGridItems { get; set; }
     }
 }

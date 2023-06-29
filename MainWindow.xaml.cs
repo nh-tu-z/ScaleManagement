@@ -45,17 +45,17 @@ namespace scale
         {
             InitializeComponent();
 
-            InitialService();
+            InitializeService();
 
             // data is added to DataContext to be shown in table
             _viewModel.OutputSheetDataGridItems = _dbService.Query<OutputSheet>(OutputSheetCommand.Get20OutputSheets);
             DataContext = _viewModel;
         }
 
-        private void InitialService()
+        private void InitializeService()
         {
             var connectionString = "Server=localhost;Database=sysb;Trusted_Connection=True;";
-            _dbService = SqlServerService.CreateInstance(connectionString); ;
+            _dbService = SqlServerService.CreateInstance(connectionString);
         }
 
         private async void load(object sender, RoutedEventArgs e)
@@ -125,7 +125,7 @@ namespace scale
         private void clientManagementViewClick(object sender, RoutedEventArgs e)
         {
             // TODO -  prevent duplication
-            ClientManagementView clientManagementView = new ClientManagementView();
+            ClientManagementView clientManagementView = new ClientManagementView(_dbService);
 
             clientManagementView.Show();
         }
@@ -133,7 +133,7 @@ namespace scale
         private void clientInsertionViewClick(object sender, RoutedEventArgs e)
         {
             // TODO -  prevent duplication
-            ClientInsertionView clientInsertionView = new ClientInsertionView();
+            ClientInsertionView clientInsertionView = new ClientInsertionView(_dbService);
 
             clientInsertionView.Show();
         }

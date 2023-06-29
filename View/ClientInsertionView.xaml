@@ -10,7 +10,7 @@
         Height="350" 
         Width="200">
     <Grid>
-        <StackPanel Loaded="load">
+        <StackPanel Loaded="Load">
             <TextBlock
                         Text="Mã Khách Hàng:"
                         Margin="5,0,0,0" 
@@ -63,7 +63,7 @@
                     Background="#FF64CCF1"
                     Foreground="#FFF9F9F9"
                     Margin="5,0,0,5"
-                    Style="{DynamicResource RoundedButtonStyle}" Click="apply"/>
+                    Style="{DynamicResource RoundedButtonStyle}" Click="Apply"/>
                 <Button 
                     Content="Thoát" 
                     Width="75"
