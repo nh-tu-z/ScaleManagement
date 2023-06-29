@@ -259,7 +259,8 @@
                     Margin="10,0,0,5"
                     VerticalAlignment="Center" 
                     FontWeight="Medium"/>
-            <ComboBox 
+            <ComboBox
+                    ItemsSource="{Binding Path=KhachHangNames}"
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Center" 
                     Width="120"
@@ -275,7 +276,7 @@
                     Style="{DynamicResource CircleButton}" 
                     Foreground="Black" 
                     Background="#FFAEEA00" 
-                    Click="clientInsertionViewClick"/>
+                    Click="ClientInsertionViewClickEventHandler"/>
             <Button 
                     Content="#"   
                     VerticalAlignment="Center" 
@@ -396,7 +397,7 @@
                     Background="#FF64CCF1"
                     Foreground="#FFF9F9F9"
                     Margin="5,0,0,5"
-                    Style="{DynamicResource RoundedButtonStyle}" Click="clientManagementViewClick"/>
+                    Style="{DynamicResource RoundedButtonStyle}" Click="ClientManagementViewClickEventHandler"/>
                 <Button 
                     Content="Đơn giá" 
                     VerticalAlignment="Center" 

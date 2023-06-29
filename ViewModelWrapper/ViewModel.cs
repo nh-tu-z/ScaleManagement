@@ -14,5 +14,7 @@ namespace scale.ViewModelWrapper
         public IEnumerable<Product> ProductDataGridItems { get; set; }
         public KhachHangDataModel ClientDataGridItems { get; set; } = new KhachHangDataModel();
         public IEnumerable<UnitPrice> UnitPriceDataGridItems { get; set; }
+        public KhachHangNameDataModel KhachHangNames { get; set; } = new KhachHangNameDataModel();
+
     }
 }

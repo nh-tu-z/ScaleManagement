@@ -1,5 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace scale.Model
 {
-    public class KhachHangDataModel : ObservableCollection<KhachHang>
+    public class KhachHangNameDataModel : ObservableCollection<string>
     {
-        public KhachHangDataModel() 
+        public KhachHangNameDataModel()
         {
-            
+
         }
 
-        public KhachHangDataModel(IEnumerable<KhachHang> items)
+        public KhachHangNameDataModel(IEnumerable<string> items)
         {
             AddRange(items);
         }
 
-        public void AddRange(IEnumerable<KhachHang> items)
+        public void AddRange(IEnumerable<string> items)
         {
             foreach (var item in items)
             {

@@ -1,1 +1,0 @@
-TODO - move entiy (database) schema into this folder

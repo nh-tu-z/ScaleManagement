@@ -93,9 +93,9 @@
     <Compile Include="Interfaces\IDbService.cs" />
     <Compile Include="Interfaces\IKhachHangService.cs" />
     <Compile Include="Model\DonGia.cs" />
-    <Compile Include="Model\KhachHang.cs" />
+    <Compile Include="Model\Entity\KhachHang.cs" />
     <Compile Include="Model\KhachHangDataModel.cs" />
-    <Compile Include="Model\KhachHangPropertyChanged.cs" />
+    <Compile Include="Model\KhachHangNameDataModel.cs" />
     <Compile Include="Model\SanPham.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Peripheral\COM.cs" />
@@ -112,7 +112,6 @@
     <Compile Include="Scratch\Messaging\MessageViewModel.cs" />
     <Compile Include="Scratch\Messaging\PortSettiingsViewModel.cs" />
     <Compile Include="Scratch\Messaging\SerialPortViewModel.cs" />
-    <Resource Include="Model\Entity\text.txt" />
     <Content Include="Script\V1_0_3__add_constraint_KhachHang_table.sql" />
     <Compile Include="Services\KhachHangService.cs" />
     <Compile Include="Services\SqlServerService.cs" />

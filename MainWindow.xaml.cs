@@ -38,8 +38,9 @@ namespace scale
     /// </summary>
     public partial class MainWindow : System.Windows.Window
     {
-        private readonly ViewModel _viewModel = new ViewModel();
+        private ViewModel _viewModel = new ViewModel();
         private IDbService _dbService;
+        private IKhachHangService _khachHangService;
 
         public MainWindow()
         {
@@ -50,20 +51,19 @@ namespace scale
             // data is added to DataContext to be shown in table
             _viewModel.OutputSheetDataGridItems = _dbService.Query<OutputSheet>(OutputSheetCommand.Get20OutputSheets);
             DataContext = _viewModel;
+
+            GetKhachHangNameDropDown();
         }
 
         private void InitializeService()
         {
             var connectionString = "Server=localhost;Database=sysb;Trusted_Connection=True;";
             _dbService = SqlServerService.CreateInstance(connectionString);
+            _khachHangService = new KhachHangService(_dbService);
         }
 
         private async void load(object sender, RoutedEventArgs e)
         {
-            // TODO - we might need to use binding data in combo box
-            // add client name data to combo box
-            clientNameComboBox.ItemsSource = _dbService.Query<string>(KhachHangCommand.GetKhachHangName);
-
             // add merchandise name to combo box
             merchandiseNameComboBox.ItemsSource = _dbService.Query<string>(SanPhamCommand.GetSanPhamName);
 
@@ -85,6 +85,14 @@ namespace scale
 
             //Trace.WriteLine($"data: {((List<FirebaseObject<Test>>)dinos)[0].Object.name}");
             ////Trace.WriteLine($"data: {dinos.ToString()}");
+        }
+
+        private void GetKhachHangNameDropDown()
+        {
+            _viewModel.KhachHangNames.Clear();
+            var allKhachHangNames = _khachHangService.GetAllKhachHangNames();
+            _viewModel.KhachHangNames.AddRange(allKhachHangNames);
+
         }
 
         // TODO - for views that has query data from database when they initialize, 
@@ -122,19 +130,22 @@ namespace scale
             priceManagementView.Show();
         }
 
-        private void clientManagementViewClick(object sender, RoutedEventArgs e)
+        private void ClientManagementViewClickEventHandler(object sender, RoutedEventArgs e)
         {
-            // TODO -  prevent duplication
             ClientManagementView clientManagementView = new ClientManagementView(_dbService);
-
+            clientManagementView.Closed += ClosedEventHandler;
             clientManagementView.Show();
         }
 
-        private void clientInsertionViewClick(object sender, RoutedEventArgs e)
+        private void ClosedEventHandler(object sender, EventArgs e)
         {
-            // TODO -  prevent duplication
-            ClientInsertionView clientInsertionView = new ClientInsertionView(_dbService);
+            GetKhachHangNameDropDown();
+        }
 
+        private void ClientInsertionViewClickEventHandler(object sender, RoutedEventArgs e)
+        {
+            ClientInsertionView clientInsertionView = new ClientInsertionView(_dbService);
+            clientInsertionView.Closed += ClosedEventHandler;
             clientInsertionView.Show();
         }
 
