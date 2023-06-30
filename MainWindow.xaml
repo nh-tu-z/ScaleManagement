@@ -408,7 +408,7 @@
                     Foreground="#FFF9F9F9"
                     Margin="5,0,0,5"
                     Style="{DynamicResource RoundedButtonStyle}" 
-                    Click="priceManagementViewClick"/>
+                    Click="PriceManagementViewClick"/>
                 <Button 
                     Content="Mặt Hàng" 
                     VerticalAlignment="Center" 
@@ -438,7 +438,7 @@
                     Foreground="#FFF9F9F9"
                     Margin="5,0,0,5"
                     Style="{DynamicResource RoundedButtonStyle}" 
-                    Click="configViewClick"/>
+                    Click="ConfigViewClick"/>
                 <Button 
                     Content="Thoát" 
                     VerticalAlignment="Center" 

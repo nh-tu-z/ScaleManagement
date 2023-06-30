@@ -17,6 +17,8 @@ using scale.ViewModelWrapper;
 using scale.SQLQuery;
 // debugging
 using System.Diagnostics;
+using scale.Interfaces;
+using scale.Services;
 
 namespace scale.View
 {
@@ -25,35 +27,47 @@ namespace scale.View
     /// </summary>
     public partial class PriceManagementView : Window
     {
-        private readonly ViewModel viewModel = new ViewModel();
-        public PriceManagementView()
+        private ViewModel _viewModel = new ViewModel();
+        private IDonGiaService _donGiaService;
+        public PriceManagementView(IDbService dbService)
         {
             InitializeComponent();
 
-            viewModel.UnitPriceDataGridItems = MineQuery.GetUnitPrices();
-            this.DataContext = viewModel;
+            InitializeService(dbService);
+
+            DataContext = _viewModel;
+            GetDonGiaTable();
         }
 
-        private void addNewPriceManagement(object sender, RoutedEventArgs e)
+        public void InitializeService(IDbService dbService)
+        {
+            _donGiaService = new DonGiaService(dbService);
+        }
+
+        private void AddNewPriceManagementEventHandler(object sender, RoutedEventArgs e)
         {
             PriceManagementInsertionView priceManagementInsertionView = new PriceManagementInsertionView();
-
+            priceManagementInsertionView.Closed += ClosedEventHandler;
             priceManagementInsertionView.Show();
-
-            // TODO - listen collapse event there to refesh the table
         }
 
-        private void edit(object sender, RoutedEventArgs e)
+        private void ClosedEventHandler(object sender, EventArgs e)
+        {
+            GetDonGiaTable();
+        }
+
+        private void EditEventHandler(object sender, RoutedEventArgs e)
         {
             // getting the current row (item) of table
-            UnitPrice selectedUnitPrice = (UnitPrice)merchandiseDataGrid.SelectedItem;
+            var selectedUnitPrice = (DonGia)merchandiseDataGrid.SelectedItem;
 
             //...then send to the new view
-            PriceManagementInsertionView priceManagementInsertionView = new PriceManagementInsertionView(selectedUnitPrice);
+            var priceManagementInsertionView = new PriceManagementInsertionView(selectedUnitPrice);
+            priceManagementInsertionView.Closed += ClosedEventHandler;
             priceManagementInsertionView.Show();
         }
 
-        private void load(object sender, RoutedEventArgs e)
+        private void LoadEventHandler(object sender, RoutedEventArgs e)
         {
             editBtn.IsEnabled = false;
             deleteBtn.IsEnabled = false;
@@ -61,7 +75,7 @@ namespace scale.View
 
         // using selection changed event for getting data record 
         // we might use selected cells changed event when this event does not work in some cases
-        private void selectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SelectionChangedEventHandler(object sender, SelectionChangedEventArgs e)
         {
             // debug the event
             Trace.WriteLine($"PriceManagementView - Selection Changed event start...");
@@ -75,7 +89,7 @@ namespace scale.View
             
         }
 
-        private void delete(object sender, RoutedEventArgs e)
+        private void DeleteEventHandler(object sender, RoutedEventArgs e)
         {
             // show confirm box to client aware of their action
             MessageBoxResult result = MessageBox.Show(@"Giá sản phẩm sẽ bị xoá vĩnh viễn và không có khả năng khôi phục,
@@ -83,14 +97,23 @@ namespace scale.View
             if(result == MessageBoxResult.Yes)
             {
                 // getting the current row (item) of table
-                UnitPrice selectedUnitPrice = (UnitPrice)merchandiseDataGrid.SelectedItem;
+                var selectedUnitPrice = (DonGia)merchandiseDataGrid.SelectedItem;
 
                 // delete the record in database
-                int rowChanged = MineQuery.DeleteUnitPrice(selectedUnitPrice.ProductID);
+                int rowChanged = MineQuery.DeleteUnitPrice(selectedUnitPrice.SanPhamID);
+
+                GetDonGiaTable();
 
                 // debugging
                 Trace.WriteLine($"PriceManagementView - Deleted Unit Price - affected row: {rowChanged}");
             }
+        }
+
+        private void GetDonGiaTable()
+        {
+            _viewModel.UnitPriceDataGridItems.Clear();
+            var allDonGias = _donGiaService.GetAllDonGias();
+            _viewModel.UnitPriceDataGridItems.AddRange(allDonGias);
         }
     }
 }

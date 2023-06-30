@@ -13,7 +13,7 @@ namespace scale.ViewModelWrapper
         public IEnumerable<OutputSheet> OutputSheetDataGridItems { get; set; }
         public MatHangDataModel ProductDataGridItems { get; set; } = new MatHangDataModel();
         public KhachHangDataModel ClientDataGridItems { get; set; } = new KhachHangDataModel();
-        public IEnumerable<UnitPrice> UnitPriceDataGridItems { get; set; }
+        public DonGiaDataModel UnitPriceDataGridItems { get; set; } = new DonGiaDataModel();
         public KhachHangNameDataModel KhachHangNames { get; set; } = new KhachHangNameDataModel();
         public TenHangDataModel TenHang { get; set; } = new TenHangDataModel();
     }

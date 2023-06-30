@@ -103,43 +103,39 @@ namespace scale
 
         // TODO - for views that has query data from database when they initialize, 
         // we need to add an async process for that view to prevent app from pending state
-        private void configViewClick(object sender, RoutedEventArgs e)
+        private void ConfigViewClick(object sender, RoutedEventArgs e)
         {
-            // TODO -  prevent duplication
             ConfigurationView configView = new ConfigurationView();
 
             configView.Owner = this;
-            configView.Show();
+            configView.ShowDialog();
         }
 
         private void sheetsManagementViewClick(object sender, RoutedEventArgs e)
         {
-            // TODO -  prevent duplication
             SheetsManagementView sheetsManagementView = new SheetsManagementView();
 
-            sheetsManagementView.Show();
+            sheetsManagementView.ShowDialog();
         }
 
         private void MerchandiseViewClick(object sender, RoutedEventArgs e)
         {
             MerchandiseView merchandiseView = new MerchandiseView(_dbService);
             merchandiseView.Closed += ClosedEventHandler;
-            merchandiseView.Show();
+            merchandiseView.ShowDialog();
         }
 
-        private void priceManagementViewClick(object sender, RoutedEventArgs e)
+        private void PriceManagementViewClick(object sender, RoutedEventArgs e)
         {
-            // TODO -  prevent duplication
-            PriceManagementView priceManagementView = new PriceManagementView();
-
-            priceManagementView.Show();
+            PriceManagementView priceManagementView = new PriceManagementView(_dbService);
+            priceManagementView.ShowDialog();
         }
 
         private void ClientManagementViewClickEventHandler(object sender, RoutedEventArgs e)
         {
             ClientManagementView clientManagementView = new ClientManagementView(_dbService);
             clientManagementView.Closed += ClosedEventHandler;
-            clientManagementView.Show();
+            clientManagementView.ShowDialog();
         }
 
         private void ClosedEventHandler(object sender, EventArgs e)
@@ -152,14 +148,14 @@ namespace scale
         {
             ClientInsertionView clientInsertionView = new ClientInsertionView(_dbService);
             clientInsertionView.Closed += ClosedEventHandler;
-            clientInsertionView.Show();
+            clientInsertionView.ShowDialog();
         }
 
         private void MerchandiseInsertionViewClickEventHandler(object sender, RoutedEventArgs e)
         {
             MerchandiseInsertionView merchandiseInsertionView = new MerchandiseInsertionView();
             merchandiseInsertionView.Closed += ClosedEventHandler;
-            merchandiseInsertionView.Show();
+            merchandiseInsertionView.ShowDialog();
         }
 
         private async void exportFileClick(object sender, RoutedEventArgs e)

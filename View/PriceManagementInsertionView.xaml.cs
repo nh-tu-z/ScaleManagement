@@ -40,14 +40,14 @@ namespace scale.View
             InitializeComponent();
 
             // populate data
-            UnitPrice selectedUnitPrice = (UnitPrice)obj;
+            var selectedUnitPrice = (DonGia)obj;
 
-            productIDCbx.ItemsSource = new List<string>() { selectedUnitPrice.ProductID };
-            productIDCbx.SelectedItem = selectedUnitPrice.ProductID;
+            productIDCbx.ItemsSource = new List<string>() { selectedUnitPrice.SanPhamID };
+            productIDCbx.SelectedItem = selectedUnitPrice.SanPhamID;
 
-            exchangeTxtBox.Text = selectedUnitPrice.Proportion;
-            priceTxtBox.Text = selectedUnitPrice.Price;
-            noteForPriceTxtBox.Text = selectedUnitPrice.Note;
+            exchangeTxtBox.Text = selectedUnitPrice.TyTrong.ToString();
+            priceTxtBox.Text = selectedUnitPrice.Gia.ToString();
+            noteForPriceTxtBox.Text = selectedUnitPrice.GhiChu;
 
             // change the button content
             applyBtn.Content = "Sửa";

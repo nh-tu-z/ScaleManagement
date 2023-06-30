@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:scale.View"
         mc:Ignorable="d"
-        Title="PriceManagementView" Height="450" Width="800" Loaded="load">
+        Title="PriceManagementView" Height="450" Width="800" Loaded="LoadEventHandler">
     <Grid>
         <!--
         Basically, there are 2 rows:
@@ -25,28 +25,28 @@
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding UnitPriceDataGridItems, UpdateSourceTrigger=PropertyChanged}"
                 Margin="5"
-                SelectionChanged="selectionChanged">
+                SelectionChanged="SelectionChangedEventHandler">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Header="Sản Phẩm"
                         MinWidth="50"
                         Width="*"
-                        Binding="{Binding ProductID}"/>
+                        Binding="{Binding SanPhamID}"/>
                     <DataGridTextColumn
                         Header="Tỷ Trọng"
                         MinWidth="50"
                         Width="*"
-                        Binding="{Binding Proportion}"/>
+                        Binding="{Binding TyTrong}"/>
                     <DataGridTextColumn
                         Header="Giá (VNĐ)"
                         MinWidth="50"
                         Width="*"
-                        Binding="{Binding Price}"/>
+                        Binding="{Binding Gia}"/>
                     <DataGridTextColumn
                         Header="Ghi Chú"
                         MinWidth="50"
                         Width="*"
-                        Binding="{Binding Note}"/>
+                        Binding="{Binding GhiChu}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -62,7 +62,7 @@
                     Background="#FF64CCF1"
                     Foreground="#FFF9F9F9"
                     Margin="5,0,0,5"
-                    Style="{DynamicResource RoundedButtonStyle}" Click="addNewPriceManagement"/>
+                    Style="{DynamicResource RoundedButtonStyle}" Click="AddNewPriceManagementEventHandler"/>
             <Button 
                     x:Name="editBtn"
                     Content="Sửa" 
@@ -72,7 +72,7 @@
                     Foreground="#FFF9F9F9"
                     Margin="5,0,0,5"
                     Style="{DynamicResource RoundedButtonStyle}" 
-                    Click="edit"/>
+                    Click="EditEventHandler"/>
             <Button 
                     x:Name="deleteBtn"
                     Content="Xoá" 
@@ -82,7 +82,7 @@
                     Foreground="#FFF9F9F9"
                     Margin="5,0,0,5"
                     Style="{DynamicResource RoundedButtonStyle}" 
-                    Click="delete"/>
+                    Click="DeleteEventHandler"/>
             <Button 
                     Content="Thoát" 
                     Width="75"
