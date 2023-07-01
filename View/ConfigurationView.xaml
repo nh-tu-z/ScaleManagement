@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:scale.View"
         mc:Ignorable="d"
-        Title="ConfigurationView" Height="450" Width="800">
+        Title="ConfigurationView" Height="450" Width="800" Loaded="LoadEventHandler">
     <Grid>
         <!--
         Basically, there are 2 rows:
@@ -49,34 +49,36 @@
                         Text="Port:" 
                         FontWeight="Light"
                         FontSize="15"/>
-                    <ComboBox 
+                    <ComboBox
+                        ItemsSource="{Binding Path=PortSettings.AvaliablePorts}"
+                        SelectedItem="{Binding Path=PortSettings.SelectedCOMPort, UpdateSourceTrigger=PropertyChanged}"
                         Margin="15,0,0,0"
-                        Width="150"/>
+                        Width="150"
+                        x:Name="portComboBox"/>
                 </StackPanel>
                 <StackPanel
                     Orientation="Horizontal"
-                    Margin="5">
-                    <TextBlock 
-                        Margin="5,0,0,0" 
-                        Width="60"
-                        Text="Baudrate:" 
-                        FontWeight="Light"
-                        FontSize="15"/>
-                    <ComboBox 
-                        Margin="15,0,0,0"
-                        Width="150"/>
-                </StackPanel>
+                    Margin="5"/>
                 <Button
-                    Content="Connect" 
-                    VerticalAlignment="Center" 
+                    Content="Refresh" 
                     Width="75"
                     Height="25"
                     Background="#FF64CCF1" 
                     Foreground="#FFF9F9F9"
-                    Margin="5,10,0,5"
-                    Style="{DynamicResource RoundedButtonStyle}"/>
+                    Style="{DynamicResource RoundedButtonStyle}" RenderTransformOrigin="1.611,1.072" Click="RefreshClickEventHandler"/>
+                <Button
+                    Content="Connect" 
+                    Width="75"
+                    Height="25"
+                    Background="#FF64CCF1" 
+                    Foreground="#FFF9F9F9"
+                    Style="{DynamicResource RoundedButtonStyle}" RenderTransformOrigin="-0.451,0.648" Click="PortConnectionClickEventHandler"/>
+                <TextBox 
+                    Text="{Binding Messages.MessagesText, UpdateSourceTrigger=PropertyChanged}"
+                    FontSize="12"
+                    IsReadOnly="True" Height="258"/>
             </StackPanel>
-            
+
             <!-- General configuration -->
             <StackPanel Grid.Column="1">
                 <TextBlock 
@@ -102,7 +104,7 @@
                         FontSize="15"/>
                     <TextBox
                         Margin="5"/>
-                </StackPanel>                
+                </StackPanel>
             </StackPanel>
 
             <!-- File path -->

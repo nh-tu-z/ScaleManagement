@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace scale.Helper
+namespace scale.Peripheral.Model
 {
-    class Setting
+    public class COMSettings
     {
+        public string PortName { get; set; }
     }
 }

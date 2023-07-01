@@ -10,7 +10,11 @@
         Height="350" 
         Width="200">
     <Grid>
-        <StackPanel Loaded="Load">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="94*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Loaded="Load" Grid.RowSpan="2">
             <TextBlock
                         Text="Mã Khách Hàng:"
                         Margin="5,0,0,0" 

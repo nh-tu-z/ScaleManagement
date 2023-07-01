@@ -28,7 +28,7 @@ namespace scale.View
     /// </summary>
     public partial class ClientManagementView : Window
     {
-        private ViewModel _viewModel = new ViewModel();
+        private MainViewModel _viewModel = new MainViewModel();
         private IDbService _dbService;
         private IKhachHangService _khachHangService;
 
@@ -36,14 +36,14 @@ namespace scale.View
         {
             InitializeComponent();
 
-            InitializeService(dbService);
+            InitializeServices(dbService);
 
             DataContext = _viewModel;
 
             GetKhachHangTable();
         }
 
-        public void InitializeService(IDbService dbService)
+        private void InitializeServices(IDbService dbService)
         {
             _dbService = dbService;
             _khachHangService = new KhachHangService(dbService);

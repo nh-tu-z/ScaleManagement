@@ -8,7 +8,7 @@ using scale.Model;
 
 namespace scale.ViewModelWrapper
 {
-    class ViewModel 
+    class MainViewModel 
     {
         public IEnumerable<OutputSheet> OutputSheetDataGridItems { get; set; }
         public MatHangDataModel ProductDataGridItems { get; set; } = new MatHangDataModel();

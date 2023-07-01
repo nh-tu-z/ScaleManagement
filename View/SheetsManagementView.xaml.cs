@@ -24,7 +24,7 @@ namespace scale.View
     /// </summary>
     public partial class SheetsManagementView : Window
     {
-        private readonly ViewModel viewModel = new ViewModel();
+        private readonly MainViewModel viewModel = new MainViewModel();
         public SheetsManagementView()
         {
             InitializeComponent();

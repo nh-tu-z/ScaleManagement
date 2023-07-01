@@ -27,7 +27,7 @@ namespace scale.View
     /// </summary>
     public partial class PriceManagementView : Window
     {
-        private ViewModel _viewModel = new ViewModel();
+        private MainViewModel _viewModel = new MainViewModel();
         private IDonGiaService _donGiaService;
         public PriceManagementView(IDbService dbService)
         {

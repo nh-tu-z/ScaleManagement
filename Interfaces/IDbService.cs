@@ -10,6 +10,6 @@ namespace scale.Interfaces
     {
         IEnumerable<T> Query<T>(string query, object parameters = null) where T : class;
         int Execute(string query, object parameters = null);
-        T QuerySingleOrDefault<T>(string query, object parameters = null) where T : class;
+        T QuerySingleOrDefault<T>(string query, object parameters = null);
     }
 }
