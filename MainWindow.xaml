@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:scale"
         mc:Ignorable="d"
-        Title="Scale" Height="700" Width="1200" MinWidth="1200" MinHeight="700" Loaded="load">
+        Title="Scale" Height="700" Width="1200" MinWidth="1200" MinHeight="700" Loaded="LoadEventHandler">
     <Grid>
         <!-- TODO
             Height and Width of the window should be compatible with the 
@@ -389,7 +389,7 @@
                     Foreground="#FFF9F9F9"
                     Margin="5,0,0,5"
                     Style="{DynamicResource RoundedButtonStyle}" 
-                    Click="exportFileClick"/>
+                    Click="ExportFileClickEventHandler"/>
                 <Button 
                     Content="Khách Hàng"   
                     VerticalAlignment="Center" 
@@ -428,7 +428,7 @@
                     Foreground="#FFF9F9F9"
                     Margin="5,0,0,5"
                     Style="{DynamicResource RoundedButtonStyle}" 
-                    Click="sheetsManagementViewClick"/>
+                    Click="SheetsManagementViewClickEventHandler"/>
                 <Button 
                     Content="Cài Đặt" 
                     VerticalAlignment="Center" 

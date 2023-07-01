@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.IO.Ports;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -30,6 +31,7 @@ using Firebase.Database.Query;
 using System.Diagnostics;
 using scale.Interfaces;
 using scale.Services;
+using scale.Peripheral.Model;
 
 namespace scale
 {
@@ -38,10 +40,11 @@ namespace scale
     /// </summary>
     public partial class MainWindow : System.Windows.Window
     {
-        private ViewModel _viewModel = new ViewModel();
+        private readonly MainViewModel _viewModel = new MainViewModel();
         private IDbService _dbService;
         private IKhachHangService _khachHangService;
         private IMatHangService _matHangService;
+        private ICOMService _comService;
 
         public MainWindow()
         {
@@ -49,12 +52,12 @@ namespace scale
 
             InitializeService();
 
-            // data is added to DataContext to be shown in table
-            _viewModel.OutputSheetDataGridItems = _dbService.Query<OutputSheet>(OutputSheetCommand.Get20OutputSheets);
             DataContext = _viewModel;
 
             GetKhachHangNameDropDown();
             GetTenHangDropDown();
+
+            //_viewModel.OutputSheetDataGridItems = _dbService.Query<OutputSheet>(OutputSheetCommand.Get20OutputSheets);
         }
 
         private void InitializeService()
@@ -63,9 +66,11 @@ namespace scale
             _dbService = SqlServerService.CreateInstance(connectionString);
             _khachHangService = new KhachHangService(_dbService);
             _matHangService = new MatHangService(_dbService);
+            _comService = new COMService(_dbService);
         }
 
-        private async void load(object sender, RoutedEventArgs e)
+        #region Routed Event Handler
+        private async void LoadEventHandler(object sender, RoutedEventArgs e)
         {
             //// test scale convertion
             ////Scale indicator = new Scale();
@@ -87,31 +92,16 @@ namespace scale
             ////Trace.WriteLine($"data: {dinos.ToString()}");
         }
 
-        private void GetKhachHangNameDropDown()
-        {
-            _viewModel.KhachHangNames.Clear();
-            var allKhachHangNames = _khachHangService.GetAllKhachHangNames();
-            _viewModel.KhachHangNames.AddRange(allKhachHangNames);
-        }
-
-        private void GetTenHangDropDown()
-        {
-            _viewModel.TenHang.Clear();
-            var tenHang = _matHangService.GetTenHang();
-            _viewModel.TenHang.AddRange(tenHang);
-        }
-
         // TODO - for views that has query data from database when they initialize, 
         // we need to add an async process for that view to prevent app from pending state
         private void ConfigViewClick(object sender, RoutedEventArgs e)
         {
-            ConfigurationView configView = new ConfigurationView();
-
-            configView.Owner = this;
+            ConfigurationView configView = new ConfigurationView(_dbService);
+            configView.PortSettingChanged += PortSettingChanged;
             configView.ShowDialog();
         }
 
-        private void sheetsManagementViewClick(object sender, RoutedEventArgs e)
+        private void SheetsManagementViewClickEventHandler(object sender, RoutedEventArgs e)
         {
             SheetsManagementView sheetsManagementView = new SheetsManagementView();
 
@@ -138,12 +128,6 @@ namespace scale
             clientManagementView.ShowDialog();
         }
 
-        private void ClosedEventHandler(object sender, EventArgs e)
-        {
-            GetKhachHangNameDropDown();
-            GetTenHangDropDown();
-        }
-
         private void ClientInsertionViewClickEventHandler(object sender, RoutedEventArgs e)
         {
             ClientInsertionView clientInsertionView = new ClientInsertionView(_dbService);
@@ -158,7 +142,7 @@ namespace scale
             merchandiseInsertionView.ShowDialog();
         }
 
-        private async void exportFileClick(object sender, RoutedEventArgs e)
+        private async void ExportFileClickEventHandler(object sender, RoutedEventArgs e)
         {
             // disable the button because we might have multiple click
             exportBtn.IsEnabled = false;
@@ -169,7 +153,46 @@ namespace scale
 
             // release button
             exportBtn.IsEnabled = true;
-            MessageBox.Show("Export successfully", "Information",MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Export successfully", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+        #endregion
+
+        #region Custom Event Handler
+        void PortSettingChanged(object sender, COMSettings comSettings)
+        {
+            InitialCOMPort(comSettings);
+        }
+
+        private void ClosedEventHandler(object sender, EventArgs e)
+        {
+            GetKhachHangNameDropDown();
+            GetTenHangDropDown();
+        }
+        #endregion
+
+        #region Internal Function
+        private void GetKhachHangNameDropDown()
+        {
+            _viewModel.KhachHangNames.Clear();
+            var allKhachHangNames = _khachHangService.GetAllKhachHangNames();
+            _viewModel.KhachHangNames.AddRange(allKhachHangNames);
+        }
+
+        private void GetTenHangDropDown()
+        {
+            _viewModel.TenHang.Clear();
+            var tenHang = _matHangService.GetTenHang();
+            _viewModel.TenHang.AddRange(tenHang);
+        }
+
+        private void InitialCOMPort(COMSettings comSettings)
+        {
+            var doesPortExist = _comService.DoesPortExist(comSettings.PortName);
+            if (!doesPortExist)
+            {
+                _comService.InsertPort(comSettings.PortName);
+            }
+        }
+        #endregion
     }
 }

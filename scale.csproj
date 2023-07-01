@@ -84,17 +84,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CommandText\COMCommand.cs" />
     <Compile Include="CommandText\KhachHangCommand.cs" />
     <Compile Include="CommandText\OutputSheetCommand.cs" />
     <Compile Include="CommandText\SanPhamCommand.cs" />
-    <Compile Include="Helper\Cache.cs" />
     <Compile Include="Helper\DBConnection.cs" />
     <Compile Include="Helper\Excellor.cs" />
+    <Compile Include="Interfaces\ICOMService.cs" />
     <Compile Include="Interfaces\IDbService.cs" />
     <Compile Include="Interfaces\IDonGiaService.cs" />
     <Compile Include="Interfaces\IKhachHangService.cs" />
     <Compile Include="Interfaces\IMatHangService.cs" />
     <Compile Include="Model\DonGiaDataModel.cs" />
+    <Compile Include="Model\Entity\COM.cs" />
     <Compile Include="Model\Entity\DonGia.cs" />
     <Compile Include="Model\Entity\KhachHang.cs" />
     <Compile Include="Model\Entity\SanPham.cs" />
@@ -104,20 +106,15 @@
     <Compile Include="Model\TenHangDataModel.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Peripheral\COM.cs" />
+    <Compile Include="Peripheral\Model\COMSettings.cs" />
     <Compile Include="Peripheral\Scale.cs" />
     <Compile Include="Scratch\Exceller.cs" />
-    <Compile Include="Helper\Setting.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\OutputSheet.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\UnitPrice.cs" />
-    <Compile Include="Scratch\Messaging\MainViewModel.cs" />
-    <Compile Include="Scratch\Messaging\MessageReveiver.cs" />
-    <Compile Include="Scratch\Messaging\MessageSender.cs" />
-    <Compile Include="Scratch\Messaging\MessageViewModel.cs" />
-    <Compile Include="Scratch\Messaging\PortSettiingsViewModel.cs" />
-    <Compile Include="Scratch\Messaging\SerialPortViewModel.cs" />
     <Content Include="Script\V1_0_3__add_constraint_KhachHang_table.sql" />
+    <Compile Include="Services\COMService.cs" />
     <Compile Include="Services\DonGiaService.cs" />
     <Compile Include="Services\KhachHangService.cs" />
     <Compile Include="Services\MatHangService.cs" />
@@ -127,7 +124,9 @@
     <Compile Include="Utilities\BaseViewModel.cs" />
     <Compile Include="Utilities\Command.cs" />
     <Compile Include="Utilities\CommandParam.cs" />
-    <Compile Include="ViewModelWrapper\ViewModel.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ConfigurationViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\ClientInsertionView.xaml.cs">
       <DependentUpon>ClientInsertionView.xaml</DependentUpon>
     </Compile>
@@ -238,9 +237,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Script\V1_0_0__init_DonGia_table.sql" />
     <Content Include="Script\V1_0_1__init_khachhang_table.sql" />

@@ -28,7 +28,7 @@ namespace scale.View
     /// </summary>
     public partial class MerchandiseView : Window
     {
-        private ViewModel _viewModel = new ViewModel();
+        private MainViewModel _viewModel = new MainViewModel();
         private IDbService _dbService;
         private IMatHangService _matHangService;
 
