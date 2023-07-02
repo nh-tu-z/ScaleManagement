@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace scale.Peripheral.Model
 {
-    public class COMSettings
+    public class SerialPortResult
     {
-        public string PortName { get; set; }
+        public string PortName { get; set; } = string.Empty;
+        public bool IsConnected { get; set; } = false;
     }
 }
