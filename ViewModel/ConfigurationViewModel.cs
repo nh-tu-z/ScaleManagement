@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static scale.Common.Constants;
 
 namespace scale.ViewModel
 {
@@ -21,6 +22,13 @@ namespace scale.ViewModel
         {
             get => _selectedComPort;
             set => RaisePropertyChanged(ref _selectedComPort, value);
+        }
+
+        private string _comPortState;
+        public string ComPortState
+        {
+            get => _comPortState;
+            set => RaisePropertyChanged(ref _comPortState, value);
         }
     }
 }

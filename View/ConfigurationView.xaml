@@ -67,7 +67,7 @@
                     Foreground="#FFF9F9F9"
                     Style="{DynamicResource RoundedButtonStyle}" RenderTransformOrigin="1.611,1.072" Click="RefreshClickEventHandler"/>
                 <Button
-                    Content="Connect" 
+                    Content="{Binding Path=PortSettings.ComPortState, UpdateSourceTrigger=PropertyChanged}" 
                     Width="75"
                     Height="25"
                     Background="#FF64CCF1" 

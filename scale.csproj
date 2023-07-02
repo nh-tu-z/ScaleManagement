@@ -84,17 +84,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CommandText\COMCommand.cs" />
-    <Compile Include="CommandText\KhachHangCommand.cs" />
-    <Compile Include="CommandText\OutputSheetCommand.cs" />
-    <Compile Include="CommandText\SanPhamCommand.cs" />
-    <Compile Include="Helper\DBConnection.cs" />
-    <Compile Include="Helper\Excellor.cs" />
+    <Compile Include="Common\CommandText\COMCommand.cs" />
+    <Compile Include="Common\CommandText\KhachHangCommand.cs" />
+    <Compile Include="Common\CommandText\OutputSheetCommand.cs" />
+    <Compile Include="Common\CommandText\SanPhamCommand.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\CustomEvent.cs" />
+    <Compile Include="Common\Helper\DBConnection.cs" />
+    <Compile Include="Common\Helper\Excellor.cs" />
     <Compile Include="Interfaces\ICOMService.cs" />
     <Compile Include="Interfaces\IDbService.cs" />
     <Compile Include="Interfaces\IDonGiaService.cs" />
     <Compile Include="Interfaces\IKhachHangService.cs" />
     <Compile Include="Interfaces\IMatHangService.cs" />
+    <Compile Include="Interfaces\ISerialPortService.cs" />
     <Compile Include="Model\DonGiaDataModel.cs" />
     <Compile Include="Model\Entity\COM.cs" />
     <Compile Include="Model\Entity\DonGia.cs" />
@@ -106,7 +109,8 @@
     <Compile Include="Model\TenHangDataModel.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Peripheral\COM.cs" />
-    <Compile Include="Peripheral\Model\COMSettings.cs" />
+    <Compile Include="Peripheral\Model\PortSettings.cs" />
+    <Compile Include="Peripheral\Model\SerialPortResult.cs" />
     <Compile Include="Peripheral\Scale.cs" />
     <Compile Include="Scratch\Exceller.cs" />
     <Compile Include="Model\Client.cs" />
@@ -118,12 +122,10 @@
     <Compile Include="Services\DonGiaService.cs" />
     <Compile Include="Services\KhachHangService.cs" />
     <Compile Include="Services\MatHangService.cs" />
+    <Compile Include="Services\SerialPortService.cs" />
     <Compile Include="Services\SqlServerService.cs" />
-    <Compile Include="CommandText\DonGiaCommand.cs" />
+    <Compile Include="Common\CommandText\DonGiaCommand.cs" />
     <Compile Include="SQLQuery\MineQuery.cs" />
-    <Compile Include="Utilities\BaseViewModel.cs" />
-    <Compile Include="Utilities\Command.cs" />
-    <Compile Include="Utilities\CommandParam.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ConfigurationViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -164,7 +166,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helper\SQLCommand.cs" />
+    <Compile Include="Common\Helper\SQLCommand.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

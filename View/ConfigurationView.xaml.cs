@@ -16,6 +16,8 @@ using scale.Interfaces;
 using scale.Peripheral.Model;
 using scale.ViewModel;
 using scale.Services;
+using static scale.Common.CustomEvent;
+using static scale.Common.Constants;
 
 namespace scale.View
 {
@@ -24,19 +26,35 @@ namespace scale.View
     /// </summary>
     public partial class ConfigurationView : Window
     {
-        public delegate void PortSettingEnventHandler(object sender, COMSettings comSettings);
-        public event PortSettingEnventHandler PortSettingChanged;
-
         private ConfigurationViewModel _viewModel = new ConfigurationViewModel();
         private ICOMService _comService;
 
-        public ConfigurationView(IDbService dbService)
+        public MainWindow ParentWindow;
+        public event CustomEventHandler<PortSettings> PortSettingChanged;
+
+        public ConfigurationView(MainWindow parent, IDbService dbService)
         {
             InitializeComponent();
 
             InitializeServices(dbService);
 
             DataContext = _viewModel;
+            _viewModel.PortSettings.ComPortState = COMPortAction.Connect.ToString();
+
+            ParentWindow = parent;
+            ParentWindow.SerialPortResult += SerialPortResultEventHandler;
+        }
+
+        private void SerialPortResultEventHandler(object sender, SerialPortResult result)
+        {
+            if (result.IsConnected)
+            {
+                _viewModel.PortSettings.ComPortState = COMPortAction.Disconnect.ToString();
+            }
+            else
+            {
+                _viewModel.PortSettings.ComPortState = COMPortAction.Connect.ToString();
+            }
         }
 
         private void InitializeServices(IDbService dbService)
@@ -51,9 +69,20 @@ namespace scale.View
 
         private void PortConnectionClickEventHandler(object sender, RoutedEventArgs e)
         {
-            var comSettings = new COMSettings()
+            COMPortAction action;
+            if (_viewModel.PortSettings.ComPortState == COMPortAction.Connect.ToString())
             {
-                PortName = _viewModel.PortSettings.SelectedCOMPort
+                action = COMPortAction.Connect;
+            }
+            else
+            {
+                action = COMPortAction.Disconnect;
+            }
+
+            var comSettings = new PortSettings()
+            {
+                PortName = _viewModel.PortSettings.SelectedCOMPort,
+                Action = action
             };
             PortSettingChanged.Invoke(this, comSettings);
         }

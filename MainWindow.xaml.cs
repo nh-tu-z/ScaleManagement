@@ -32,6 +32,8 @@ using System.Diagnostics;
 using scale.Interfaces;
 using scale.Services;
 using scale.Peripheral.Model;
+using static scale.Common.CustomEvent;
+using static scale.Common.Constants;
 
 namespace scale
 {
@@ -42,9 +44,11 @@ namespace scale
     {
         private readonly MainViewModel _viewModel = new MainViewModel();
         private IDbService _dbService;
+        private ISerialPortService _serialPortService;
         private IKhachHangService _khachHangService;
         private IMatHangService _matHangService;
-        private ICOMService _comService;
+
+        public event CustomEventHandler<SerialPortResult> SerialPortResult;
 
         public MainWindow()
         {
@@ -64,9 +68,9 @@ namespace scale
         {
             var connectionString = "Server=localhost;Database=sysb;Trusted_Connection=True;";
             _dbService = SqlServerService.CreateInstance(connectionString);
+            _serialPortService = SerialPortService.CreateInstance();
             _khachHangService = new KhachHangService(_dbService);
             _matHangService = new MatHangService(_dbService);
-            _comService = new COMService(_dbService);
         }
 
         #region Routed Event Handler
@@ -96,7 +100,7 @@ namespace scale
         // we need to add an async process for that view to prevent app from pending state
         private void ConfigViewClick(object sender, RoutedEventArgs e)
         {
-            ConfigurationView configView = new ConfigurationView(_dbService);
+            ConfigurationView configView = new ConfigurationView(this, _dbService);
             configView.PortSettingChanged += PortSettingChanged;
             configView.ShowDialog();
         }
@@ -158,9 +162,22 @@ namespace scale
         #endregion
 
         #region Custom Event Handler
-        void PortSettingChanged(object sender, COMSettings comSettings)
+        void PortSettingChanged(object sender, PortSettings comSettings)
         {
-            InitialCOMPort(comSettings);
+            if (comSettings.Action == COMPortAction.Connect)
+            {
+                _serialPortService.Connect(comSettings);
+            }
+            else
+            {
+                _serialPortService.Disconnect();
+            }
+            var result = new SerialPortResult()
+            {
+                PortName = _serialPortService.PortName(),
+                IsConnected = _serialPortService.IsOpen()
+            };
+            SerialPortResult?.Invoke(this, result);
         }
 
         private void ClosedEventHandler(object sender, EventArgs e)
@@ -183,15 +200,6 @@ namespace scale
             _viewModel.TenHang.Clear();
             var tenHang = _matHangService.GetTenHang();
             _viewModel.TenHang.AddRange(tenHang);
-        }
-
-        private void InitialCOMPort(COMSettings comSettings)
-        {
-            var doesPortExist = _comService.DoesPortExist(comSettings.PortName);
-            if (!doesPortExist)
-            {
-                _comService.InsertPort(comSettings.PortName);
-            }
         }
         #endregion
     }
