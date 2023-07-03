@@ -98,6 +98,7 @@
     <Compile Include="Interfaces\IKhachHangService.cs" />
     <Compile Include="Interfaces\IMatHangService.cs" />
     <Compile Include="Interfaces\ISerialPortService.cs" />
+    <Compile Include="Interfaces\IWeighingIndicator.cs" />
     <Compile Include="Model\DonGiaDataModel.cs" />
     <Compile Include="Model\Entity\COM.cs" />
     <Compile Include="Model\Entity\DonGia.cs" />
@@ -112,6 +113,11 @@
     <Compile Include="Peripheral\Model\PortSettings.cs" />
     <Compile Include="Peripheral\Model\SerialPortResult.cs" />
     <Compile Include="Peripheral\Scale.cs" />
+    <Compile Include="Peripheral\XK3190-D10\Constants.cs" />
+    <Compile Include="Peripheral\XK3190-D10\Dataframe\CommandDataframeHandler.cs" />
+    <Compile Include="Peripheral\XK3190-D10\Dataframe\ContinuouslySendDataframeHandler.cs" />
+    <Compile Include="Peripheral\XK3190-D10\Dataframe\DataframeHandler.cs" />
+    <Compile Include="Peripheral\XK3190-D10\XK3190D10.cs" />
     <Compile Include="Scratch\Exceller.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\OutputSheet.cs" />
