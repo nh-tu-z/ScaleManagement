@@ -94,6 +94,22 @@ namespace scale
 
             //Trace.WriteLine($"data: {((List<FirebaseObject<Test>>)dinos)[0].Object.name}");
             ////Trace.WriteLine($"data: {dinos.ToString()}");
+
+            var dataframe = new byte[] { 0x02, 0x2B, 0x30, 0x30, 0x32, 0x30, 0x30, 0x30, 0x32, 0x31, 0x42, 0x03 };
+
+            // FACT - logic based on one frame received data in docs
+            byte[] rawData = new byte[8];
+            Array.Copy(dataframe, 1, rawData, 0, rawData.Length);
+            var decimalPointString = Encoding.ASCII.GetString(new byte[] { rawData.Last() });
+            if (int.TryParse(decimalPointString, out var decimalPoint))
+            {
+                var wholeNumber = rawData.Take(rawData.Length - decimalPoint);
+                var fractionalPart = new byte[decimalPoint];
+                Array.Copy(rawData, rawData.Length - decimalPoint, fractionalPart, 0, fractionalPart.Length);
+                var weighingString = wholeNumber.Concat(new byte[] { 46 })
+                                              .Concat(fractionalPart);
+                float.TryParse(Encoding.ASCII.GetString(weighingString.ToArray()), out var result);
+            };
         }
 
         // TODO - for views that has query data from database when they initialize, 
