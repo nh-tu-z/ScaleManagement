@@ -34,6 +34,7 @@ using scale.Services;
 using scale.Peripheral.Model;
 using static scale.Common.CustomEvent;
 using static scale.Common.Constants;
+using System.Text.RegularExpressions;
 
 namespace scale
 {
@@ -174,6 +175,16 @@ namespace scale
             // release button
             exportBtn.IsEnabled = true;
             MessageBox.Show("Export successfully", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void SoXeChangedEventHandler(object sender, TextChangedEventArgs e)
+        {
+            
+        }
+
+        // TODO - prevent paste text - not allow pass
+        private void PreviewSoXeInputEventHandler(object sender, TextCompositionEventArgs e)
+        {
         }
         #endregion
 

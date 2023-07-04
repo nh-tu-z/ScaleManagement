@@ -109,10 +109,8 @@
     <Compile Include="Model\MatHangDataModel.cs" />
     <Compile Include="Model\TenHangDataModel.cs" />
     <Compile Include="Model\Test.cs" />
-    <Compile Include="Peripheral\COM.cs" />
     <Compile Include="Peripheral\Model\PortSettings.cs" />
     <Compile Include="Peripheral\Model\SerialPortResult.cs" />
-    <Compile Include="Peripheral\Scale.cs" />
     <Compile Include="Peripheral\XK3190-D10\Constants.cs" />
     <Compile Include="Peripheral\XK3190-D10\Dataframe\CommandDataframeHandler.cs" />
     <Compile Include="Peripheral\XK3190-D10\Dataframe\ContinuouslySendDataframeHandler.cs" />
