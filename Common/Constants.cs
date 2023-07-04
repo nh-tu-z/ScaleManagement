@@ -13,5 +13,7 @@ namespace scale.Common
             Connect,
             Disconnect
         }
+
+        public const string BienSoXeRegexPattern = @"^\d{2}[A-Za-z]\d-\d{4,5}$";
     }
 }
